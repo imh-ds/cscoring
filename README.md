@@ -15,3 +15,7 @@ This package can be installed directly from GitHub with `devtools`:
 devtools::install_github("imh-ds/cscoring")
 
 ```
+
+
+## Usage: Composite Scoring With Correlation Weights
+
