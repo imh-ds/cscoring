@@ -5,6 +5,8 @@
 #' (Duckworth et al., 2007) from the OpenPsychoMetrics website
 #' (\href{https://openpsychometrics.org/_rawdata/}).
 #' 
+#' @name grit
+#' 
 #' @docType data
 #' 
 #' @usage data(grit)
