@@ -9,6 +9,7 @@ Description: Correlation and regression weighted composite scoring for
 License: GPL (>= 2)
 Encoding: UTF-8
 Depends:
-    R (>= 4.2.2),
+    R (>= 4.2.2)
+Imports:
     tidyverse
 RoxygenNote: 7.2.3
