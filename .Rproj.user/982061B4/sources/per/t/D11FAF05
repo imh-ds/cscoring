@@ -1,0 +1,26 @@
+{
+    "id": "D11FAF05",
+    "path": "C:/Users/imhoh/OneDrive/Academia/GitHub/cscoring/man/grit.Rd",
+    "project_path": "man/grit.Rd",
+    "type": "r_doc",
+    "hash": "2757581671",
+    "contents": "",
+    "dirty": false,
+    "created": 1700940848087.0,
+    "source_on_save": false,
+    "relative_order": 7,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1700940434,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1700940434,
+    "read_only": true,
+    "read_only_alternatives": [
+        "R/grit.R"
+    ]
+}

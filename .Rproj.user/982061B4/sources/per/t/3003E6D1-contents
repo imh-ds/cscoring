@@ -12,5 +12,5 @@ Depends:
     R (>= 4.2.2)
 Imports:
     tidyverse
-LazyData: TRUE
+LazyData: true
 RoxygenNote: 7.2.3
