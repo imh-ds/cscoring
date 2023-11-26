@@ -33,12 +33,12 @@
 #'                 openness = sprintf("o%01d", seq(10)),
 #'                 grit = sprintf("gs%01d", seq(12)))
 #' 
-#' # Calculate correlation weighted composite scores
+#' # Calculate correlation-weighted composite scores
 #' correlation_data <- composite_score(data = dat,
 #'                                     varlist = varlist,
 #'                                     weight = "correlation")
 #' 
-#' # Calculate regression weighted composite scores
+#' # Calculate regression-weighted composite scores
 #' regression_data <- composite_score(data = dat,
 #'                                    varlist = varlist,
 #'                                    weight = "regression")
