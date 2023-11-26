@@ -74,6 +74,6 @@ varlist <- list(extraversion = sprintf("e%01d", seq(10)),
 # Calculate correlation weighted composite scores
 correlation_data <- composite_score(data = dat,
                                     varlist = varlist,
-                                    weight = "correlation")
+                                    weight = "regression")
 
 ```
