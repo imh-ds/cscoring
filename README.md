@@ -30,9 +30,8 @@ For correlation weights, the weights are determined by the average correlation o
 By default, the `composite_score` function will use correlation weights. To use the function with correlation weights, you will only need to specify a named list of vectors. Each name in the list should represent the name of the composite score variable, and the corresponding vector should contain the names of the indicator variables.
 
 ```r
-
 # Load data
-dat <- data(grit)
+data(grit)
 
 # Specify the named list with composite names and their respective indicators
 varlist <- list(extraversion = sprintf("e%01d", seq(10)),
@@ -43,7 +42,7 @@ varlist <- list(extraversion = sprintf("e%01d", seq(10)),
                 grit = sprintf("gs%01d", seq(12)))
 
 # Calculate correlation weighted composite scores
-correlation_data <- composite_score(data = dat,
+correlation_data <- composite_score(data = grit,
                                     varlist = varlist,
                                     weight = "correlation")
 
@@ -61,7 +60,7 @@ To use the function with regression weights, you will need to specify a named li
 ```r
 
 # Load data
-dat <- data(grit)
+data(grit)
 
 # Specify the named list with composite names and their respective indicators
 varlist <- list(extraversion = sprintf("e%01d", seq(10)),
@@ -72,7 +71,7 @@ varlist <- list(extraversion = sprintf("e%01d", seq(10)),
                 grit = sprintf("gs%01d", seq(12)))
 
 # Calculate regression weighted composite scores
-regression_data <- composite_score(data = dat,
+regression_data <- composite_score(data = grit,
                                    varlist = varlist,
                                    weight = "regression")
 

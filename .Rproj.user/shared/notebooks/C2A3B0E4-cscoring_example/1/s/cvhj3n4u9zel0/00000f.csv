@@ -1,0 +1,8 @@
+"0","# Calculate correlation weighted composite scores
+correlation_data <- composite_score(data = dat,
+                                    varlist = varlist,
+                                    weight = ""correlation"")
+"
+"2","Error in UseMethod(""select"") : 
+  no applicable method for 'select' applied to an object of class ""character""
+"
