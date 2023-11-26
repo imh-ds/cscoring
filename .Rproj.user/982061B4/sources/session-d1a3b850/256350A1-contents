@@ -2,8 +2,7 @@
 #' 
 #' This example data contains 500 responses from people completing the Big 5
 #' personality inventory (John & Srivastava, 1999) and the Grit Scale 
-#' (Duckworth et al., 2007) from the OpenPsychoMetrics website
-#' (\href{https://openpsychometrics.org/_rawdata/}).
+#' (Duckworth et al., 2007) from \href{https://openpsychometrics.org/_rawdata/}{OpenPsychoMetrics}.
 #' 
 #' @name grit
 #' 
@@ -57,11 +56,11 @@
 #'    \item{c9}{I follow a schedule.}
 #'    \item{c10}{I am exacting in my work.}
 #'    \item{o1}{I have a rich vocabulary.}
-#'    \item{o2}{I have difficulty understanding abstract ideas.}
+#'    \item{o2}{I have difficulty understanding abstract ideas.*}
 #'    \item{o3}{I have a vivid imagination.}
-#'    \item{o4}{I am not interested in abstract ideas.}
+#'    \item{o4}{I am not interested in abstract ideas.*}
 #'    \item{o5}{I have excellent ideas.}
-#'    \item{o6}{I do not have a good imagination.}
+#'    \item{o6}{I do not have a good imagination.*}
 #'    \item{o7}{I am quick to understand things.}
 #'    \item{o8}{I use difficult words.}
 #'    \item{o9}{I spend time reflecting on things.}
@@ -82,8 +81,7 @@
 #' 
 #' @keywords datasets
 #' 
-#' @source Refer to OpenPsychoMetrics for the full dataset
-#' (\href{https://openpsychometrics.org/_rawdata/}).
+#' @source \href{https://openpsychometrics.org/_rawdata/}{OpenPsychoMetrics}.
 #' 
 #' @references
 #' Duckworth, A.L., Peterson, C., Matthews, M.D., & Kelly, D.R. (2007). Grit:

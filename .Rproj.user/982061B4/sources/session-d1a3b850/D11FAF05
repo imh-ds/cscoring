@@ -3,7 +3,7 @@
     "path": "C:/Users/imhoh/OneDrive/Academia/GitHub/cscoring/man/grit.Rd",
     "project_path": "man/grit.Rd",
     "type": "r_doc",
-    "hash": "2757581671",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1700940848087.0,
@@ -11,16 +11,16 @@
     "relative_order": 7,
     "properties": {
         "source_window_id": "",
-        "Source": "Source"
+        "Source": "Source",
+        "cursorPosition": "0,0",
+        "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1700940434,
+    "lastKnownWriteTime": 1700973991,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1700940434,
-    "read_only": true,
-    "read_only_alternatives": [
-        "R/grit.R"
-    ]
+    "last_content_update": 1700973991,
+    "read_only": false,
+    "read_only_alternatives": []
 }

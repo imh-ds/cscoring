@@ -3,7 +3,7 @@
     "path": "C:/Users/imhoh/OneDrive/Academia/GitHub/cscoring/R/composite_score.R",
     "project_path": "R/composite_score.R",
     "type": "r_source",
-    "hash": "1197937501",
+    "hash": "2837576589",
     "contents": "",
     "dirty": false,
     "created": 1700895600613.0,
@@ -13,15 +13,15 @@
         "tempName": "Untitled1",
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "0,0",
-        "scrollLine": "0"
+        "cursorPosition": "44,3",
+        "scrollLine": "21"
     },
-    "folds": "43|52|134|0|\n",
-    "lastKnownWriteTime": 1700896596,
+    "folds": "48|52|139|0|\n",
+    "lastKnownWriteTime": 1700973978,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1700896596310,
+    "last_content_update": 1700973978136,
     "read_only": false,
     "read_only_alternatives": []
 }

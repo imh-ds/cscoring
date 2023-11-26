@@ -23,18 +23,23 @@
 #' 
 #' @examples
 #' 
+#' dat <- data(grit)
+#' 
 #' # Specify the named list with composite names and their respective indicators
-#' varlist <- list(depression = c("d1", "d2", "d3"),
-#'                 anxiety    = c("a1", "a2", "a3", "a4", "a5"),
-#'                 sleep      = c("s1", "s2", "s3", "s4"))
+#' varlist <- list(extraversion = sprintf("e%01d", seq(10)),
+#'                 neuroticism = sprintf("n%01d", seq(10)),
+#'                 agreeableness = sprintf("a%01d", seq(10)),
+#'                 conscientiousness = sprintf("c%01d", seq(10)),
+#'                 openness = sprintf("o%01d", seq(10)),
+#'                 grit = sprintf("gs%01d", seq(12)))
 #' 
 #' # Calculate correlation weighted composite scores
-#' correlation_data <- composite_score(data = raw_data,
+#' correlation_data <- composite_score(data = dat,
 #'                                     varlist = varlist,
 #'                                     weight = "correlation")
 #' 
 #' # Calculate regression weighted composite scores
-#' regression_data <- composite_score(data = raw_data,
+#' regression_data <- composite_score(data = dat,
 #'                                    varlist = varlist,
 #'                                    weight = "regression")
 #' 
