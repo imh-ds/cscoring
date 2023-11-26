@@ -93,5 +93,4 @@
 #' (Eds.), Handbook of personality: Theory and research (2nd ed., pp. 102–138).
 #' Guilford Press.
 #' 
-#' @export
-grit <- data("grit")
+NULL
