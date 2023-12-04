@@ -1,0 +1,8 @@
+"0","round(cor(correlation_data$grit,
+          regression_data$grit,
+          use = ""complete.obs""), 3)
+"
+"1","[1]"
+"1"," 0.991"
+"1","
+"

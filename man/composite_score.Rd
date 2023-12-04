@@ -2,7 +2,7 @@
 % Please edit documentation in R/composite_score.R
 \name{composite_score}
 \alias{composite_score}
-\title{Composite Scoring}
+\title{Calculate Composite Scores}
 \usage{
 composite_score(data = ., varlist, weight = "correlation")
 }
@@ -20,7 +20,9 @@ For composite scores emulating reflective measurements, specify as
 `"correlation"` to calculate the composite score with correlation weights.
 For composite scores emulating formative measurements, specify as
 `"regression"` to calculate the composite score with regression weights.
-The default is set to correlation weights.}
+For composite scores that are unweighted, specify as `"average"` to
+calculate the composite scores with averages. The default is set to
+correlation weights.}
 }
 \value{
 A dataframe identical to the input dataframe, with additional columns 
@@ -29,11 +31,13 @@ scores.
 }
 \description{
 Create composite scores of scales by specifying the indicators that go into
-each respective composite variable.
+each respective composite variable. See help documents `?average_score`,
+`?regression_score`, and `?correlation_score` for information on how the
+composite scores for each weighting scheme are calculated.
 }
 \examples{
 
-dat <- data(grit)
+data(grit)
 
 # Specify the named list with composite names and their respective indicators
 varlist <- list(extraversion = sprintf("e\%01d", seq(10)),
@@ -44,13 +48,18 @@ varlist <- list(extraversion = sprintf("e\%01d", seq(10)),
                 grit = sprintf("gs\%01d", seq(12)))
 
 # Calculate correlation-weighted composite scores
-correlation_data <- composite_score(data = dat,
+correlation_data <- composite_score(data = grit,
                                     varlist = varlist,
                                     weight = "correlation")
 
 # Calculate regression-weighted composite scores
-regression_data <- composite_score(data = dat,
+regression_data <- composite_score(data = grit,
                                    varlist = varlist,
                                    weight = "regression")
+                                   
+# Calculate unweighted average composite scores
+average_data <- composite_score(data = grit,
+                                varlist = varlist,
+                                weight = "average")
 
 }
