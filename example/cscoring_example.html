@@ -11,9 +11,8 @@
 
 <meta name="author" content="Hohjin Im" />
 
-<meta name="date" content="2023-11-25" />
 
-<title>cscoring: Example</title>
+<title>cscoring: Weighted Composite Scoring for Scales</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -253,6 +252,28 @@ if (window.hljs) {
 
 
 
+<style type="text/css">
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+}
+.hanging div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}
+</style>
 
 
 
@@ -350,47 +371,120 @@ display: none;
 
 
 
-<h1 class="title toc-ignore">cscoring: Example</h1>
+<h1 class="title toc-ignore">cscoring: Weighted Composite Scoring for
+Scales</h1>
 <h4 class="author">Hohjin Im</h4>
-<h4 class="date">2023-11-25</h4>
+<h4 class="date">v.0.2.0</h4>
 
 </div>
 
 
-<div id="description" class="section level2">
-<h2>Description</h2>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
 <p>In the realm of psychology and other social behavioral sciences,
 latent constructs are often measured using scales. These scales commonly
 undergo psychometric validation through methods such as exploratory
-factor analysis, confirmatory factor analysis, and principal component
-analysis. It is also common to observe varying factor loadings among
-indicators, implying that some are more reflective of their latent
-construct than others.</p>
+factor analysis (EFA), confirmatory factor analysis (CFA), and principal
+component analysis (PCA). It is also common to observe varying factor
+loadings among indicators, implying that some are <em>more</em>
+reflective (i.e., representative) of their latent construct than
+others.</p>
 <p>Despite this, many researchers outside of scale development or factor
 analysis-related studies (e.g., structural equation modeling) tend to
-create an unweighted composite score by simply averaging or summing the
-indicator items. This prevalent practice in psychology overlooks the
-disparity in factor loadings across indicators, thereby assuming that
-all indicators are equally representative of the latent construct.
-Although this assumption may hold true for some scales, it is seldom the
-case in practice. In other words, for many studies, researchers
-unintentionally apply a factor structure on their scales that have not
-been validated.</p>
+create an <em>unweighted</em> composite score by simply averaging or
+summing the indicator items, particularly when the analyses they are
+running require the input of just the composite scores (e.g., linear
+regression, SPSS PROCESS model, generalized linear models, etc.). This
+prevalent practice in psychology overlooks the natural variation in
+factor loadings across indicators as usually allowed in the scale’s
+original development, thereby forcing all indicators to have an equal
+representation of the latent construct. Although this assumption may
+hold true for some scales, it is seldom the case in practice. In other
+words, for many studies, researchers unintentionally apply a factor
+structure on their scales that does not reflect the original scale
+development nor have been benchmarked to be valid.</p>
 <p>To address this issue, this package provides a straightforward
 solution for researchers to generate weighted composite scores. Users
 can specify the indicators and choose between correlation or regression
 weights. This approach ensures a more accurate representation of the
-latent constructs, enhancing the validity of the research findings.</p>
+latent constructs by naturally allowing the indicators’ <em>weights</em>
+and <em>loadings</em> to vary. Below are sections that detail the
+installation and setup of the package as well as the use-cases for
+different weighting schemas. Lastly, the <code>cscoring</code> package
+is compared with Partial Least Squares Structural Equation Modeling
+(PLS-SEM) to detail when and where one can be preferred over the
+other.</p>
+<div id="example-data-big-5-personality-grit" class="section level3">
+<h3>Example Data: Big 5 Personality &amp; Grit</h3>
+<p>In this tutorial, we use a dataset included in the package that
+contains 500 respondents from the <a href="https://openpsychometrics.org/_rawdata/">OpenPsychoMetrics</a>
+website. The example dataset in this package randomly sampled 500
+respondents from the much larger original file to increase processing
+and calculation time for this quick tutorial. This dataset contains
+survey data measuring the Big 5 Personality Traits and Grit.</p>
+<p>The <strong>Big 5 Personality Trait</strong> is a personality
+framework that models personality on five dimensions: 1) openness, 2)
+conscientiousness, 3) extraversion, 4) agreeableness, and 5) neuroticism
+<span class="citation">(John &amp; Sanjay, 1999)</span>. Each dimension
+is argued to represent a spectrum (i.e., continuum) with the opposite
+ends reflecting 1) closedness, 2) unconscientiousness, 3) introversion,
+4) disagreeableness, and 5) emotional stability, respectively.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Openness</strong> represents one’s curiosity, imagination,
+and creativity. <em>Open</em> people tend to explore new experiences and
+have a broad range of interests whereas those <em>closed</em> people
+tend to prefer things that are more routine, conventional, and
+predictable.</li>
+<li><strong>Conscientiousness</strong> represents one’s organization,
+discipline, and goal orientation. <em>Conscientious</em> people tend to
+work hard and show persistence toward their objectives. On the other
+hand, <em>unconscientious</em> people tend to be more prone to
+procrastination as well as being more disorganized and impulsive.</li>
+<li><strong>Extraversion</strong> represents one’s sociability and
+assertiveness. <em>Extraverted</em> people tend to be sociable around
+others, like to seek excitement, and find it easy to express their
+emotions. <em>Introverted</em> people tend to be more reserved, quiet,
+and introspective.</li>
+<li><strong>Agreeableness</strong> represents one’s compassion,
+cooperation, and friendliness. <em>Agreeable</em> people tend to be
+trusting, helpful, and polite. <em>Disagreeable</em> people tend to be
+more cynical and competitive in how they interact with others.</li>
+<li><strong>Neuroticism</strong> represents one’s anxiety and emotional
+instability. Neurotic people tend to be more susceptible to the
+experience of negative emotions and maladaptive adjustments. Emotionally
+stable people tend to be more calm, confident, and resilient to negative
+experiences.</li>
+</ol>
+<p>The <strong>Grit</strong> framework is a theory proposed by Duckworth
+and colleagues <span class="citation">(Duckworth et al., 2007; Duckworth
+&amp; Quinn, 2009)</span> to explain why some people can achieve their
+goals while others give up. Grit is proposed to be a combination of two
+dimensions: 1) passion and 2) perseverance for long-term objectives.</p>
+<ol style="list-style-type: decimal">
+<li><strong>Passion</strong> is the degree to which a person has a
+consistent and enduring interest in a long-term goal without being
+easily distracted or bored by their pursuits. Passion motivates people
+to stay focused on their objectives, even in the face of difficulties or
+delays.</li>
+<li><strong>Perseverance</strong> is the degree to which a person works
+hard and persists in their pursuit of goals without giving up or
+switching to easier tasks. Perseverance helps people overcome obstacles
+and achieve their goals, even when obstacles arise.</li>
+</ol>
+</div>
 </div>
 <div id="installation-setup" class="section level2">
 <h2>Installation &amp; Setup</h2>
 <p>This package can be installed directly from GitHub with
 <code>devtools</code>:</p>
-<pre class="r"><code># If `devtools` isn&#39;t installed, install with
+<pre class="r"><code># If `devtools` is not already installed, install from CRAN
 # install.packages(&quot;devtools&quot;)
 devtools::install_github(&quot;imh-ds/cscoring&quot;)</code></pre>
 <p>Then load in the necessary packages:</p>
-<pre class="r"><code>library(tidyverse)
+<pre class="r"><code># If `tidyverse` is not already installed, install from CRAN
+# install.packages(&quot;tidyverse&quot;)
+
+library(tidyverse)
 library(cscoring)</code></pre>
 </div>
 <div id="usage-composite-scoring-with-correlation-weights" class="section level2">
@@ -401,14 +495,13 @@ to the final score. However, in a weighted average, each variable
 contributes proportionally to its weight. In other words, variables with
 higher weights have a greater influence on the composite score.</p>
 <p>For correlation weights, the weights are determined by the average
-correlation of each variable. Taking the average correlation of each
-indicator measures how well each variable represents the common trend
-among all indicators. Indicators highly correlated with others will have
-a higher average correlation and thus a higher weight, contributing more
-to the composite score calculation. This takes into account how well
-each variable represents the common trend among all variables. This
-approach provides a more nuanced representation of the latent construct,
-as it takes into account the varying associations between the
+correlation of each indicator with all other indicators. Taking the
+average correlation of each indicator measures how well each variable
+represents the common trend among all indicators. Indicators highly
+correlated with others will have a higher average correlation and thus a
+higher weight, contributing more to the composite score calculation.
+This approach provides a more nuanced representation of the latent
+construct, as it takes into account the varying associations between the
 indicators.</p>
 <p>By default, the <code>composite_score</code> function will use
 correlation weights. To use the function with correlation weights, you
@@ -438,25 +531,22 @@ correlation_data &lt;- composite_score(data = grit,
 linear regression model. Specifically, the correlation-weighted
 composite score is regressed on the indicators, and the resulting
 standardized regression coefficients (i.e., beta coefficients) are
-utilized as weights. This implies that the contribution of each
-indicator to the composite score is commensurate with its influence on
-the criterion variable, which in this case is the correlation-weighted
+utilized as weights. This means that the contribution of each indicator
+to the composite score is commensurate with its influence on the
+criterion variable, which in this case is the correlation-weighted
 composite score. Indicators exerting a greater influence on the
 correlation composite score will possess larger coefficients, thereby
 contributing more significantly to the regression-weighted composite
 score.</p>
-<p>Several key differences between the correlation-weighted and
-regression-weighted approaches warrant attention. Firstly, due to the
-potential discrepancy in rank-order between unstandardized and
-standardized coefficients, all indicators are standardized prior to
-their inclusion in the linear regression model. Secondly, the use of
-indicators in the linear regression model necessitates careful
-consideration of multicollinearity issues. High correlation among
-indicators can lead to multicollinearity, which may introduce bias or
-incorrect regression weights in the composite score computation. Lastly,
-as the regression weights are the beta coefficients, the proportion of
-variance in the composite score explained by the indicators will
-approach 100%.</p>
+<p>Several key things to note about the regression-weighted approach
+warrant attention. Firstly, all coefficients are standardized. Secondly,
+the use of indicators in the linear regression model necessitates
+careful consideration of multicollinearity issues. High correlation
+among indicators can lead to multicollinearity, which may introduce bias
+or incorrect regression weights in the composite score computation.
+Lastly, as the regression weights are the beta coefficients, the
+proportion of variance in the composite score explained by the
+indicators will approach 100%.</p>
 <p>To use the function with regression weights, you will need to specify
 a named list of vectors like in the case with correlation weights, and
 also specify <code>weight = &quot;regression&quot;</code>. Each name in the list
@@ -475,24 +565,27 @@ the two for <code>grit</code>.</p>
 <pre class="r"><code>round(cor(correlation_data$grit,
           regression_data$grit,
           use = &quot;complete.obs&quot;), 3)</code></pre>
-<pre><code>## [1] 0.991</code></pre>
-<p>We see that pearson’s r = 0.991. By this metric, the correlation and
+<pre><code>## [1] 0.978</code></pre>
+<p>We see that pearson’s r = 0.978. By this metric, the correlation and
 regression-weighted composite scores seem identical. However, we’ll see
 more differences between the two in later comparisons.</p>
 </div>
-<div id="comparing-with-unweighted-composites" class="section level2">
-<h2>Comparing with Unweighted Composites</h2>
-<p>To compare with unweighted composite scores, we’ll first create a
-general means composite where all the indicators are given equal
-weight.</p>
+<div id="usage-composite-scoring-with-equal-weights" class="section level2">
+<h2>Usage: Composite Scoring With Equal Weights</h2>
+<p>If you need to create unweighted composite scores, then it’s as
+simple as using the same function as before but specifying the
+<code>weight</code> argument as <code>&quot;average&quot;</code> like so:</p>
 <pre class="r"><code># Create unweighted composite scores using sum averages
-sum_data &lt;- grit
-for (var in names(varlist)) {
-  sum_data &lt;- sum_data %&gt;% 
-    mutate(!!var := rowMeans(x = select(., varlist[[var]]), na.rm = T))
-}</code></pre>
-<p>Now, we can again compare the correlation and regression-weighted
-grit composite scores with the unweighted composite score.</p>
+sum_data &lt;- composite_score(data = grit,
+                            varlist = varlist,
+                            weight = &quot;average&quot;)</code></pre>
+</div>
+<div id="comparing-with-unweighted-composites-uniform-indicators" class="section level2">
+<h2>Comparing with Unweighted Composites: Uniform Indicators</h2>
+<p>To compare with unweighted composite scores, we’ll use the unweighted
+composite scores created in the section above. We can compare the
+correlation and regression-weighted grit composite scores with the
+unweighted composite score like so:</p>
 <pre class="r"><code>round(cor(correlation_data$grit,
           sum_data$grit,
           use = &quot;complete.obs&quot;), 3)</code></pre>
@@ -500,21 +593,12 @@ grit composite scores with the unweighted composite score.</p>
 <pre class="r"><code>round(cor(regression_data$grit,
           sum_data$grit,
           use = &quot;complete.obs&quot;), 3)</code></pre>
-<pre><code>## [1] 0.995</code></pre>
-<p>We can see that the unweighted composite scores is very close to that
-of the correlation (r = 0.997) and regression-weighted composite scores
-(r = 0.995). We can expect this to occur for well-developed scales where
-indicators do not vary significantly in how much they reflect the latent
-construct. In such cases, researchers may benefit from examining whether
-their scales can be shortened due to rudimentary representation in their
-scales. However, this point goes beyond the scope of this package.
-Differences between weighted and unweighted composite scores will become
-more evident when the scales have indicators that vary strongly in their
-representation of the latent construct. We can easily force this to
-happen by mix-and-matching indicators from other constructs
-together.</p>
-<p>First, let’s see the correlation matrix between the Big 5 personality
-traits and Grit for the unweighted composite scores:</p>
+<pre><code>## [1] 0.98</code></pre>
+<p>We can see that the unweighted composite scores closely align with
+that of the correlation (r = 0.997) and regression-weighted composite
+scores (r = 0.98). This can also be further demonstrated by examining
+the correlation matrix of the Big 5 personality traits and Grit for the
+unweighted composite scores:</p>
 <pre class="r"><code>variables &lt;- c(&quot;grit&quot;, &quot;extraversion&quot;, &quot;neuroticism&quot;, &quot;openness&quot;, &quot;conscientiousness&quot;, &quot;agreeableness&quot;)
 
 cor(sum_data %&gt;% select(all_of(variables)),
@@ -535,9 +619,12 @@ cor(sum_data %&gt;% select(all_of(variables)),
 ## agreeableness              1.00</code></pre>
 <p>We can see that <code>conscientiousness</code> is highly correlated
 with <code>grit</code>. This is fairly consistent with the existing
-literature. When we examine the correlation matrices for the weighted
-composite scores, the results tell a similar story:</p>
-<pre class="r"><code>cor(correlation_data %&gt;% select(all_of(variables)),
+literature <span class="citation">(Credé et al., 2017; Ponnock et al.,
+2020; Schmidt et al., 2018, 2020)</span>. When we examine the
+correlation matrices for the weighted composite scores, the results tell
+a similar story:</p>
+<pre class="r"><code># Correlation matrix for correlation-weighted composites
+cor(correlation_data %&gt;% select(all_of(variables)),
     use = &quot;complete.obs&quot;) %&gt;% round(2)</code></pre>
 <pre><code>##                    grit extraversion neuroticism openness conscientiousness
 ## grit               1.00         0.19       -0.40     0.13              0.61
@@ -553,30 +640,59 @@ composite scores, the results tell a similar story:</p>
 ## openness                   0.10
 ## conscientiousness          0.09
 ## agreeableness              1.00</code></pre>
-<pre class="r"><code>cor(regression_data %&gt;% select(all_of(variables)),
+<pre class="r"><code># Correlation matrix for regression-weighted composites
+cor(regression_data %&gt;% select(all_of(variables)),
     use = &quot;complete.obs&quot;) %&gt;% round(2)</code></pre>
 <pre><code>##                    grit extraversion neuroticism openness conscientiousness
-## grit               1.00         0.19       -0.39     0.14              0.61
-## extraversion       0.19         1.00       -0.30     0.17              0.04
-## neuroticism       -0.39        -0.30        1.00    -0.11             -0.24
-## openness           0.14         0.17       -0.11     1.00              0.10
-## conscientiousness  0.61         0.04       -0.24     0.10              1.00
-## agreeableness      0.23         0.28       -0.14     0.11              0.11
+## grit               1.00         0.16       -0.35     0.16              0.50
+## extraversion       0.16         1.00       -0.28     0.05              0.03
+## neuroticism       -0.35        -0.28        1.00    -0.15             -0.21
+## openness           0.16         0.05       -0.15     1.00              0.01
+## conscientiousness  0.50         0.03       -0.21     0.01              1.00
+## agreeableness      0.18         0.27       -0.11    -0.08              0.38
 ##                   agreeableness
-## grit                       0.23
-## extraversion               0.28
-## neuroticism               -0.14
-## openness                   0.11
-## conscientiousness          0.11
+## grit                       0.18
+## extraversion               0.27
+## neuroticism               -0.11
+## openness                  -0.08
+## conscientiousness          0.38
 ## agreeableness              1.00</code></pre>
-<p>However, suppose that our <code>conscientiousness</code> composite
-included 3 indicators from the <code>neuroticism</code> composite. Of
-course, <code>neuroticism</code> negatively correlates with both
-<code>conscientiousness</code> and <code>grit</code>, and sensible
-researchers will reverse-code any instances where individual indicators
-negatively correlate with the rest, but for the purposes of this
-example, we’ll keep them as is. Let’s create the bad
-<code>conscientiousness</code> composite like so:</p>
+<p>The correlation matrix for the correlation-weighted scores is nearly
+identical to the unweighted score, indicating that the indicators
+contribute uniformly to the composite. This is expected for scales where
+indicators do not significantly vary in their reflection of the latent
+construct, i.e., the indicators consistently correlate on average. In
+such instances, researchers should anticipate minimal differences in
+their results, regardless of whether they employ unweighted or weighted
+composite scores. <em>(NOTE: the uniformity of indicator contributions
+may suggest redundancy. Researchers may consider whether their scales
+can be streamlined by eliminating some repetitive items. This
+methodological consideration, however, extends beyond the purview of
+this package’s discussion.)</em></p>
+<p>The correlation matrix for the regression-weighted scores shows
+different magnitudes of effects compared to the unweighted matrix, but
+the patterns hold. Researchers should expect some muting effect between
+composite variables given that they are calculated as the predicted
+values from linear models. In other words, it introduces a new layer of
+error since the coefficients used to derive the predicted values do not
+map perfectly onto the actual values.</p>
+<p>The differences between weighted and unweighted composite scores
+(i.e., the value of using weighted composites) become more pronounced
+when the scales have indicators that vary in their representation of the
+latent construct. To demonstrate this, we can artificially induce this
+scenario by combining indicators from other constructs.</p>
+</div>
+<div id="comparing-with-unweighted-composites-varying-indicators" class="section level2">
+<h2>Comparing with Unweighted Composites: Varying Indicators</h2>
+<p>Consider a scenario where our <code>conscientiousness</code>
+composite includes three ‘bad’ items (we’ll take three items from
+<code>neuroticism</code> as examples). <code>neuroticism</code>
+correlates negatively with both <code>conscientiousness</code> and
+<code>grit</code> and naturally, prudent researchers would reverse-code
+instances where individual indicators negatively correlate with the
+rest. However, for the purposes of this illustration, we will maintain
+them as they are. Let’s proceed to construct the flawed
+<code>conscientiousness</code> composite as follows:</p>
 <pre class="r"><code># Define a new varlist but mix-and-match openness with conscientiousness
 bad_list &lt;- list(extraversion = sprintf(&quot;e%01d&quot;, seq(10)),
                  openness = sprintf(&quot;o%01d&quot;, seq(10)),
@@ -584,6 +700,7 @@ bad_list &lt;- list(extraversion = sprintf(&quot;e%01d&quot;, seq(10)),
                  conscientiousness = c(sprintf(&quot;c%01d&quot;, seq(7)),
                                        sprintf(&quot;n%01d&quot;, c(8:10))),
                  grit = sprintf(&quot;gs%01d&quot;, seq(12)))
+
 
 # Create correlation-weighted composite
 correlation_data_mix &lt;- composite_score(data = grit,
@@ -596,11 +713,10 @@ regression_data_mix &lt;- composite_score(data = grit,
                                        weight = &quot;regression&quot;)
 
 # Create unweighted composite
-sum_data_mix &lt;- grit
-for (var in names(bad_list)) {
-  sum_data_mix &lt;- sum_data_mix %&gt;% 
-    mutate(!!var := rowMeans(x = select(., bad_list[[var]]), na.rm = T))
-}
+sum_data_mix &lt;- composite_score(data = grit,
+                                varlist = bad_list,
+                                weight = &quot;average&quot;)
+
 
 # Check correlations of correlation-weighted composite with unweighted
 round(cor(correlation_data_mix$conscientiousness,
@@ -611,13 +727,14 @@ round(cor(correlation_data_mix$conscientiousness,
 round(cor(regression_data_mix$conscientiousness,
           sum_data_mix$conscientiousness,
           use = &quot;complete.obs&quot;), 3)</code></pre>
-<pre><code>## [1] 0.936</code></pre>
-<p>Once we do this, we can already see that the correlation between the
-unweighted and weighted <code>conscientiousness</code> variables fall
-from ~.99 to ~.93. Although the correlations suggest that these are
-still highly similar, to the point where they may be considered the same
-variables, the difference becomes more evident when examining the
-correlation matrices.</p>
+<pre><code>## [1] 0.465</code></pre>
+<p>Upon implementing this, we observe that the correlation between the
+unweighted and weighted <code>conscientiousness</code> variables
+decreases slightly for correlation-weighted scores and substantially for
+the regression-weighted scores. Although the correlations imply that
+these are still highly similar, to the extent that they could be
+considered identical variables, the difference becomes more noticeable
+when examining the correlation matrices.</p>
 <pre class="r"><code>variables &lt;- c(&quot;grit&quot;, &quot;extraversion&quot;, &quot;openness&quot;, &quot;conscientiousness&quot;, &quot;agreeableness&quot;)
 
 cor(sum_data_mix %&gt;% select(all_of(variables)),
@@ -639,30 +756,157 @@ cor(sum_data_mix %&gt;% select(all_of(variables)),
 <pre class="r"><code>cor(regression_data_mix %&gt;% select(all_of(variables)),
     use = &quot;complete.obs&quot;) %&gt;% round(3)</code></pre>
 <pre><code>##                    grit extraversion openness conscientiousness agreeableness
-## grit              1.000        0.189    0.142             0.345         0.229
-## extraversion      0.189        1.000    0.167            -0.126         0.279
-## openness          0.142        0.167    1.000            -0.007         0.115
-## conscientiousness 0.345       -0.126   -0.007             1.000        -0.026
-## agreeableness     0.229        0.279    0.115            -0.026         1.000</code></pre>
+## grit              1.000        0.161    0.161             0.179         0.184
+## extraversion      0.161        1.000    0.054            -0.030         0.270
+## openness          0.161        0.054    1.000             0.028        -0.075
+## conscientiousness 0.179       -0.030    0.028             1.000         0.160
+## agreeableness     0.184        0.270   -0.075             0.160         1.000</code></pre>
 <p>The correlation between <code>grit</code> and
-<code>conscientiousness</code> for the unweighted sum score is r = 0.336
-while it is r = 0.503 for correlation-weighted composites and r = 0.345
-for regression-weighted composites. As you can see, the
-correlation-weighted composite <code>conscientiousness</code> is</p>
-<pre class="r"><code>library(seminr)</code></pre>
+<code>conscientiousness</code> for the unweighted sum score is r =
+0.336, while it is r = 0.503 for correlation-weighted composites and r =
+0.179 for regression-weighted composites. As evident, the unweighted
+composite’s performance significantly deteriorates where the ‘bad’
+indicators exert excessive influence on the calculation of the final
+composite score. Similarly, the regression-weighted composite score is
+more sensitive to the inclusion of ‘bad’ indicators because it directly
+biases the beta coefficients in the linear model (in this case, the
+‘bad’ indicators have a negative impact rather than simply a muted
+impact. In most cases, the negative impact will be mitigated but this
+serves as a good example of when regression weights can be more volatile
+than its correlation counterpart). In contrast, the correlation-weighted
+composite <code>conscientiousness</code> significantly outperforms its
+counterparts by upweighting the ‘good’ indicators and downweighting the
+‘bad’ indicators, thereby retaining a stronger correlation closer to the
+true association we observed earlier.</p>
+</div>
+<div id="additional-usage-higher-order-constructs" class="section level2">
+<h2>Additional Usage: Higher-Order Constructs</h2>
+<p>In cases where a construct has multiple dimensions (i.e.,
+higher-order construct), the package can simply be piped in again with
+the dimensions as the ‘indicators’ for the higher-order composite.</p>
+<pre class="r"><code># Specify the named list with the lower-order composite names and their respective indicators
+lower_varlist &lt;- list(consistency_interest = sprintf(&quot;gs%01d&quot;, c(2,3,5,7,8,11)),
+                      perseverence_effort = sprintf(&quot;gs%01d&quot;, c(1,4,6,9,10,12)))
+                      
+# Specify the named list with the higher-order composite names and their respective indicators
+higher_varlist &lt;- list(grit = c(&quot;consistency_interest&quot;, &quot;perseverence_effort&quot;))
+
+# Calculate weighted composite scores
+higher_data &lt;- grit %&gt;%
+  composite_score(varlist = lower_varlist,
+                  weight = &quot;correlation&quot;) %&gt;%
+  composite_score(varlist = higher_varlist,
+                  weight = &quot;correlation&quot;)</code></pre>
+</div>
+<div id="additional-usage-measurement-metrics" class="section level2">
+<h2>Additional Usage: Measurement Metrics</h2>
+<p>Researchers can also extract measurement metrics for both correlation
+and regression-weighted composite scores. Two metrics can be extracted:
+1) <em>weights</em> and 2) <em>loadings</em>. The weights are the
+correlation and regression weights that were discussed in previous
+sections. The loadings are just the bivariate correlation coefficients
+between the individual indicators and their respective composite
+variable. To get both the weights and loadings of the indicators, we can
+use the <code>composite_metrics</code> function like so:</p>
+<pre class="r"><code># Specify data and varlist like when calculating the composite scores
+metrics &lt;- composite_metrics(grit,
+                             weight = &quot;correlation&quot;,
+                             varlist = varlist)
+
+head(metrics)</code></pre>
+<pre><code>##      composite indicator    weights  loadings
+## 1 extraversion        e1 0.09829385 0.6966296
+## 2 extraversion        e2 0.10237413 0.7209283
+## 3 extraversion        e3 0.09795526 0.6845268
+## 4 extraversion        e4 0.11210493 0.7916125
+## 5 extraversion        e5 0.10850156 0.7675970
+## 6 extraversion        e6 0.08735864 0.5986227</code></pre>
+<p>By default, it will return both weights and loadings. The weighting
+scheme is also set to correlation by default, but it can be changed by
+specifying it in the <code>weight</code> argument. If you only require
+one, then you can specify it in the function or use the metric-specific
+functions like so:</p>
+<pre class="r"><code># To get only the weights
+composite_metrics(grit,
+                  weight = &quot;correlation&quot;,
+                  varlist = varlist,
+                  metric = &quot;weights&quot;)
+
+# To get only the loadings
+composite_metrics(grit,
+                  weight = &quot;regression&quot;,
+                  varlist = varlist,
+                  metric = &quot;loadings&quot;)</code></pre>
+<p>If we want to score the composites <em>and</em> extract the metrics
+in one function, then we can use the composite_score_summary function.
+This function will return a list of 1) the dataframe with the composite
+scores and 2) the metrics table.</p>
+<pre class="r"><code>composite_score_summary(grit,
+                        varlist = varlist,
+                        weight = &quot;correlation&quot;)</code></pre>
+</div>
+<div id="comparing-with-pls-sem-reflective-and-formative-measurements" class="section level2">
+<h2>Comparing with PLS-SEM Reflective and Formative Measurements</h2>
+<p>Lastly, weighted composite scoring warrants a comparison with partial
+least squares structural equation modeling (PLS-SEM). PLS-SEM constructs
+composite variables in a similar fashion, creating correlation-weighted
+composites when the measurement models are defined as reflective (i.e.,
+Mode A), and regression-weighted composites when the measurement models
+are defined as formative (i.e., Mode B). The question arises as to the
+necessity of the composite scoring offered by the current package when
+PLS-SEM can perform the same function. The answer lies in the operation
+of PLS-SEM at the structural model level.</p>
+<p>Specifically, PLS-SEM aims to maximize the variance explained between
+composite variables at the structural model level and adjusts its
+indicator weights accordingly <span class="citation">(Hair Jr., Hult,
+Ringle, Sarstedt, Danks, et al., 2021; Hair Jr., Hult, Ringle, &amp;
+Sarstedt, 2021)</span>. As a result, PLS-SEM has a higher tendency to
+encounter overfitting issues compared to other analyses. In most
+academic research scenarios, overfitting is not a concern as the
+associations between pathways are typically not substantial enough to
+warrant this issue. However, in certain areas of attitudinal-behavioral
+research (e.g., intent -&gt; behavior) and industry research (e.g.,
+consumer experience surveys) where predictor and outcome variables are
+expected to correlate highly, overfitting can become a significant
+concern.</p>
+<p>This concern is exemplified in the current example using data on Big
+5 personality traits and Grit. Recent research in this field suggests
+that grit and the conscientiousness personality trait are, at best,
+overlapping constructs <span class="citation">(Schmidt et al., 2018,
+2020)</span>, and at worst, identical constructs <span class="citation">(Credé et al., 2017; Ponnock et al., 2020)</span>. The
+correlation between the unweighted conscientiousness and grit composite
+scores exceeded 0.6, indicating empirical overlap, especially
+considering that these associations are at the respondent level, not the
+aggregate level. If grit and conscientiousness are indeed overlapping
+constructs, we would expect PLS-SEM to display even stronger
+associations as the analysis aims to maximize this association. When
+associations in PLS-SEM become excessively strong, it can be inferred
+that the analysis is overfitting the model. This overfitting, akin to
+the ‘overfitting’ concern in machine learning where noise is mistakenly
+identified as real patterns, can result in an overemphasis on the
+association between one predictor and the outcome, thereby diverting the
+effects from all other viable predictors.</p>
+<pre class="r"><code># If not in library, install `seminr` from CRAN
+# install.packages(&quot;seminr&quot;)
+
+# Load in the package `seminr`
+library(seminr)</code></pre>
 <pre><code>## 
 ## Attaching package: &#39;seminr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:cscoring&#39;:
+## 
+##     correlation_weights, regression_weights</code></pre>
 <pre><code>## The following object is masked from &#39;package:purrr&#39;:
 ## 
 ##     rerun</code></pre>
 <pre class="r"><code># Set measurements for PLS-SEM correlation weights
 measurements_cor &lt;- constructs(
+  composite(&#39;grit&#39;, multi_items(&quot;gs&quot;, seq(12)), mode_A),
   composite(&quot;extraversion&quot;, multi_items(&quot;e&quot;, seq(10)), mode_A),
   composite(&quot;openness&quot;, multi_items(&quot;o&quot;, seq(10)), mode_A),
   composite(&quot;neuroticism&quot;, multi_items(&quot;n&quot;, seq(10)), mode_A),
   composite(&quot;conscientiousness&quot;, multi_items(&quot;c&quot;, seq(10)), mode_A),
-  composite(&quot;agreeableness&quot;, multi_items(&quot;a&quot;, seq(10)), mode_A),
-  composite(&#39;grit&#39;, multi_items(&quot;gs&quot;, seq(12)), mode_A)
+  composite(&quot;agreeableness&quot;, multi_items(&quot;a&quot;, seq(10)), mode_A)
 )
 
 # Set structure path
@@ -680,26 +924,8 @@ plssem_cor &lt;- seminr::estimate_pls(data = grit,
 <pre class="r"><code># Save PLS-SEM correlation weighted composite scores
 plssem_cordata &lt;- as.data.frame(plssem_cor$construct_scores)
 
-
-# Set measurements for PLS-SEM regression weights
-measurements_reg &lt;- constructs(
-  composite(&quot;extraversion&quot;, multi_items(&quot;e&quot;, seq(10)), mode_B),
-  composite(&quot;openness&quot;, multi_items(&quot;o&quot;, seq(10)), mode_B),
-  composite(&quot;neuroticism&quot;, multi_items(&quot;n&quot;, seq(10)), mode_B),
-  composite(&quot;conscientiousness&quot;, multi_items(&quot;c&quot;, seq(10)), mode_B),
-  composite(&quot;agreeableness&quot;, multi_items(&quot;a&quot;, seq(10)), mode_B),
-  composite(&#39;grit&#39;, multi_items(&quot;gs&quot;, seq(12)), mode_B)
-)
-
-# Run PLS-SEM for formative regression weights
-plssem_reg &lt;- seminr::estimate_pls(data = grit,
-                                   measurement_model = measurements_reg,
-                                   structural_model = structure)</code></pre>
-<pre><code>## Generating the seminr model
-## All 500 observations are valid.</code></pre>
-<pre class="r"><code># Save PLS-SEM regression weighted composite scores
-plssem_regdata &lt;- as.data.frame(plssem_reg$construct_scores)</code></pre>
-<pre class="r"><code>cor(plssem_cordata) %&gt;% round(3)</code></pre>
+# Examine correlation matrix for composite scores
+cor(plssem_cordata) %&gt;% round(3)</code></pre>
 <pre><code>##                   extraversion openness neuroticism conscientiousness
 ## extraversion             1.000    0.210      -0.331             0.108
 ## openness                 0.210    1.000      -0.192             0.185
@@ -714,7 +940,46 @@ plssem_regdata &lt;- as.data.frame(plssem_reg$construct_scores)</code></pre>
 ## conscientiousness         0.159  0.663
 ## agreeableness             1.000  0.292
 ## grit                      0.292  1.000</code></pre>
-<pre class="r"><code>cor(plssem_regdata) %&gt;% round(3)</code></pre>
+<p>As observed, the correlation matrix for the PLS-SEM
+correlation-weighted reflective composites reveals that the association
+between <code>conscientiousness</code> and <code>grit</code> is
+significantly higher compared to when we utilized the unweighted
+composite scores. This is a direct consequence of how PLS-SEM
+operates–it maximizes the variance explained in the outcome at the
+structural model by adjusting the weighting schema of the indicators of
+the predictor composites.</p>
+<p>In industry settings, this is particularly beneficial as it helps to
+identify of areas businesses can invest development in to improve a key
+performance indicator (KPI). Likewise, in academic research, this is
+especially useful when the research objective is to build a prediction
+model to aid in the development and refinement of scales and theories by
+pinpointing which dimensions of a construct are most likely to be
+conceptual antecedents of the outcome of interest.</p>
+<p>However, issues arise in scenarios such as the one demonstrated,
+where the associations between predictor and outcome variables become
+overly optimized, leading to overfitting. This problem also surfaces for
+regression-weighted formative composites in PLS-SEM:</p>
+<pre class="r"><code># Set measurements for PLS-SEM regression weights
+measurements_reg &lt;- constructs(
+  composite(&quot;extraversion&quot;, multi_items(&quot;e&quot;, seq(10)), mode_B),
+  composite(&quot;openness&quot;, multi_items(&quot;o&quot;, seq(10)), mode_B),
+  composite(&quot;neuroticism&quot;, multi_items(&quot;n&quot;, seq(10)), mode_B),
+  composite(&quot;conscientiousness&quot;, multi_items(&quot;c&quot;, seq(10)), mode_B),
+  composite(&quot;agreeableness&quot;, multi_items(&quot;a&quot;, seq(10)), mode_B),
+  composite(&#39;grit&#39;, multi_items(&quot;gs&quot;, seq(12)), mode_B)
+)
+
+# Run PLS-SEM for formative regression weights
+plssem_reg &lt;- seminr::estimate_pls(data = grit,
+                                   measurement_model = measurements_reg,
+                                   structural_model = structure)</code></pre>
+<pre><code>## Generating the seminr model</code></pre>
+<pre><code>## All 500 observations are valid.</code></pre>
+<pre class="r"><code># Save PLS-SEM regression weighted composite scores
+plssem_regdata &lt;- as.data.frame(plssem_reg$construct_scores)
+
+# Examine correlation matrix for composite scores
+cor(plssem_regdata) %&gt;% round(3)</code></pre>
 <pre><code>##                   extraversion openness neuroticism conscientiousness
 ## extraversion             1.000    0.174      -0.306             0.284
 ## openness                 0.174    1.000      -0.239             0.339
@@ -729,6 +994,93 @@ plssem_regdata &lt;- as.data.frame(plssem_reg$construct_scores)</code></pre>
 ## conscientiousness         0.290  0.720
 ## agreeableness             1.000  0.360
 ## grit                      0.360  1.000</code></pre>
+<p>As evident, the overfitting issue becomes significantly more
+pronounced when employing regression-weighted formative composite
+variables. In instances where PLS-SEM may not be a suitable option due
+to overfitting concerns, one might consider covariance-based SEM
+(CB-SEM) as an alternative. This can be implemented through R packages
+such as <code>lavaan</code> or specialized software like STATA or SPSS
+AMOS. However, despite its widespread use in social and behavioral
+sciences, CB-SEM has several limitations not well understood by its
+everyday users.</p>
+<p>For example, the emphasis on goodness of fit in CB-SEM often leads
+researchers to make ill-guided decisions. Conceptually sound models may
+be prematurely dismissed based on insufficient empirical fit. Often,
+this is not a reflection of the model’s theoretical foundation, but
+rather the result of measurement decisions, such as having an excessive
+number of indicators, an overly complex measurement model, or the use of
+poorly developed scales. Models that represent partial snapshots of a
+much larger, but unmeasured, theoretical model may also yield inadequate
+empirical fits due to the omission of certain covariates that could
+otherwise enhance the fit and compensate other latent constructs.
+Consequently, conceptually valid models are frequently misinterpreted
+and dismissed by researchers and reviewers, despite their potential
+contributions to the scientific literature.</p>
+<p>On the other hand, a poorly conceptualized model may misleadingly
+meet empirical field standards for ‘good fit’ by manipulating the model
+at the measurement level. This could involve using a minimal number of
+indicators per latent construct, thereby limiting the degrees of freedom
+to artificially inflate the goodness of fit. In such cases, a
+conceptually nonsensical model can misleadingly appear as an empirically
+valid model. Although the discussion of how the social and behavioral
+sciences misinterpret and incorrectly use powerful tools like CB-SEM
+extends beyond the scope of the current package, these are just a few
+examples of situations where one might prefer not to use PLS-SEM or
+CB-SEM, but still require a more rigorous construction of composite
+variables than simply creating unweighted means.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2 class="unnumbered">References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent" line-spacing="2">
+<div id="ref-credé2017" class="csl-entry">
+Credé, M., Tynan, M. C., &amp; Harms, P. D. (2017). Much ado about grit:
+A meta-analytic synthesis of the grit literature. <em>Journal of
+Personality and Social Psychology</em>, <em>113</em>(3), 492–511. <a href="https://doi.org/10.1037/pspp0000102">https://doi.org/10.1037/pspp0000102</a>
+</div>
+<div id="ref-duckworth2007" class="csl-entry">
+Duckworth, A. L., Peterson, C., Matthews, M. D., &amp; Kelly, D. R.
+(2007). Grit: Perseverance and passion for long-term goals. <em>Journal
+of Personality and Social Psychology</em>, <em>92</em>(6), 1087–1101. <a href="https://doi.org/10.1037/0022-3514.92.6.1087">https://doi.org/10.1037/0022-3514.92.6.1087</a>
+</div>
+<div id="ref-duckworth2009" class="csl-entry">
+Duckworth, A. L., &amp; Quinn, P. D. (2009). Development and Validation
+of the Short Grit Scale (Grit<span></span>S). <em>Journal of Personality
+Assessment</em>, <em>91</em>(2), 166–174. <a href="https://doi.org/10.1080/00223890802634290">https://doi.org/10.1080/00223890802634290</a>
+</div>
+<div id="ref-hairjr.2021a" class="csl-entry">
+Hair Jr., J. F., Hult, G. T. M., Ringle, C. M., &amp; Sarstedt, M.
+(2021). <em>A Primer on Partial Least Squares Structural Equation
+Modeling (PLS-SEM)</em> (3rd ed.). SAGE Publications.
+</div>
+<div id="ref-hairjr.2021" class="csl-entry">
+Hair Jr., J. F., Hult, G. T. M., Ringle, C. M., Sarstedt, M., Danks, N.
+P., &amp; Ray, S. (2021). <em>Partial least squares structural equation
+modeling (PLS-SEM) using r: A workbook</em>. Springer Nature. <a href="https://doi.org/10.1007/978-3-030-80519-7">https://doi.org/10.1007/978-3-030-80519-7</a>
+</div>
+<div id="ref-john1999" class="csl-entry">
+John, O., &amp; Sanjay, S. (1999). <em>The big five trait taxonomy:
+History, measurement, and theoretical perspectives</em> (2nd ed., Vol.
+2, pp. 102–138). The Guilford Press.
+</div>
+<div id="ref-ponnock2020" class="csl-entry">
+Ponnock, A., Muenks, K., Morell, M., Seung Yang, J., Gladstone, J. R.,
+&amp; Wigfield, A. (2020). Grit and conscientiousness: Another jangle
+fallacy. <em>Journal of Research in Personality</em>, <em>89</em>,
+104021. <a href="https://doi.org/10.1016/j.jrp.2020.104021">https://doi.org/10.1016/j.jrp.2020.104021</a>
+</div>
+<div id="ref-schmidt2020" class="csl-entry">
+Schmidt, F. T. C., Lechner, C. M., &amp; Danner, D. (2020). New wine in
+an old bottle? A facet-level perspective on the added value of Grit over
+BFI<span></span>2 Conscientiousness. <em>PLOS ONE</em>, <em>15</em>(2),
+e0228969. <a href="https://doi.org/10.1371/journal.pone.0228969">https://doi.org/10.1371/journal.pone.0228969</a>
+</div>
+<div id="ref-schmidt2018" class="csl-entry">
+Schmidt, F. T. C., Nagy, G., Fleckenstein, J., Möller, J., &amp;
+Retelsdorf, J. (2018). Same Same, but Different? Relations between
+Facets of Conscientiousness and Grit. <em>European Journal of
+Personality</em>, <em>32</em>(6), 705–720. <a href="https://doi.org/10.1002/per.2171">https://doi.org/10.1002/per.2171</a>
+</div>
+</div>
 </div>
 
 

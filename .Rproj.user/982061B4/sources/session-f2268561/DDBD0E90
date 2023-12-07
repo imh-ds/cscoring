@@ -1,0 +1,33 @@
+{
+    "id": "DDBD0E90",
+    "path": "C:/Users/imhoh/OneDrive/Academia/GitHub/cscoring/example/cscoring_example.Rmd",
+    "project_path": "example/cscoring_example.Rmd",
+    "type": "r_markdown",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1700898894288.0,
+    "source_on_save": false,
+    "relative_order": 8,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "7,28",
+        "scrollLine": "0",
+        "last_setup_crc32": "",
+        "rmdVisualMode": "false",
+        "rmdVisualCollapsedChunks": "",
+        "rmdVisualModeLocation": "2496:728.3200073242188",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "1",
+        "docOutlineSize": "298"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1701924478,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1701924478679,
+    "read_only": false,
+    "read_only_alternatives": []
+}

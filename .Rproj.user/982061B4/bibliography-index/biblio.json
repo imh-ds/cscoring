@@ -1,0 +1,342 @@
+{
+    "sources": [
+        {
+            "DOI": "10.1080/00223890802634290",
+            "URL": "http://www.tandfonline.com/doi/abs/10.1080/00223890802634290",
+            "author": [
+                {
+                    "family": "Duckworth",
+                    "given": "Angela Lee"
+                },
+                {
+                    "family": "Quinn",
+                    "given": "Patrick D."
+                }
+            ],
+            "container-title": "Journal of Personality Assessment",
+            "id": "duckworth2009",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009,
+                        2,
+                        17
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "166-174",
+            "title": "Development and Validation of the Short Grit Scale (GritS)",
+            "type": "article-journal",
+            "volume": "91"
+        },
+        {
+            "DOI": "10.1037/0022-3514.92.6.1087",
+            "URL": "http://doi.apa.org/getdoi.cfm?doi=10.1037/0022-3514.92.6.1087",
+            "author": [
+                {
+                    "family": "Duckworth",
+                    "given": "Angela L."
+                },
+                {
+                    "family": "Peterson",
+                    "given": "Christopher"
+                },
+                {
+                    "family": "Matthews",
+                    "given": "Michael D."
+                },
+                {
+                    "family": "Kelly",
+                    "given": "Dennis R."
+                }
+            ],
+            "container-title": "Journal of Personality and Social Psychology",
+            "id": "duckworth2007",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2007
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "1087-1101",
+            "title": "Grit: Perseverance and passion for long-term goals.",
+            "title-short": "Grit",
+            "type": "article-journal",
+            "volume": "92"
+        },
+        {
+            "author": [
+                {
+                    "family": "John",
+                    "given": "Oliver"
+                },
+                {
+                    "family": "Sanjay",
+                    "given": "Srivastava"
+                }
+            ],
+            "edition": "2",
+            "id": "john1999",
+            "issued": {
+                "date-parts": [
+                    [
+                        1999
+                    ]
+                ]
+            },
+            "page": "102-138",
+            "publisher": "The Guilford Press",
+            "title": "The big five trait taxonomy: History, measurement, and theoretical perspectives",
+            "title-short": "The big five trait taxonomy",
+            "type": "chapter",
+            "volume": "2"
+        },
+        {
+            "DOI": "10.1371/journal.pone.0228969",
+            "URL": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0228969",
+            "author": [
+                {
+                    "family": "Schmidt",
+                    "given": "Fabian T. C."
+                },
+                {
+                    "family": "Lechner",
+                    "given": "Clemens M."
+                },
+                {
+                    "family": "Danner",
+                    "given": "Daniel"
+                }
+            ],
+            "container-title": "PLOS ONE",
+            "id": "schmidt2020",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        2,
+                        13
+                    ]
+                ]
+            },
+            "language": "en",
+            "note": "Publisher: Public Library of Science",
+            "page": "e0228969",
+            "title": "New wine in an old bottle? A facet-level perspective on the added value of Grit over BFI2 Conscientiousness",
+            "type": "article-journal",
+            "volume": "15"
+        },
+        {
+            "DOI": "10.1002/per.2171",
+            "URL": "https://doi.org/10.1002/per.2171",
+            "author": [
+                {
+                    "family": "Schmidt",
+                    "given": "Fabian T. C."
+                },
+                {
+                    "family": "Nagy",
+                    "given": "Gabriel"
+                },
+                {
+                    "family": "Fleckenstein",
+                    "given": "Johanna"
+                },
+                {
+                    "family": "Möller",
+                    "given": "Jens"
+                },
+                {
+                    "family": "Retelsdorf",
+                    "given": "Jan"
+                }
+            ],
+            "container-title": "European Journal of Personality",
+            "id": "schmidt2018",
+            "issue": "6",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        11,
+                        1
+                    ]
+                ]
+            },
+            "language": "en",
+            "note": "Publisher: SAGE Publications Ltd",
+            "page": "705-720",
+            "title": "Same Same, but Different? Relations between Facets of Conscientiousness and Grit",
+            "type": "article-journal",
+            "volume": "32"
+        },
+        {
+            "DOI": "10.1037/pspp0000102",
+            "author": [
+                {
+                    "family": "Credé",
+                    "given": "Marcus"
+                },
+                {
+                    "family": "Tynan",
+                    "given": "Michael C."
+                },
+                {
+                    "family": "Harms",
+                    "given": "Peter D."
+                }
+            ],
+            "container-title": "Journal of Personality and Social Psychology",
+            "id": "credé2017",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017
+                    ]
+                ]
+            },
+            "note": "Place: US Publisher: American Psychological Association",
+            "page": "492-511",
+            "title": "Much ado about grit: A meta-analytic synthesis of the grit literature",
+            "title-short": "Much ado about grit",
+            "type": "article-journal",
+            "volume": "113"
+        },
+        {
+            "DOI": "10.1016/j.jrp.2020.104021",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0092656620301100",
+            "author": [
+                {
+                    "family": "Ponnock",
+                    "given": "Annette"
+                },
+                {
+                    "family": "Muenks",
+                    "given": "Katherine"
+                },
+                {
+                    "family": "Morell",
+                    "given": "Monica"
+                },
+                {
+                    "family": "Seung Yang",
+                    "given": "Ji"
+                },
+                {
+                    "family": "Gladstone",
+                    "given": "Jessica R."
+                },
+                {
+                    "family": "Wigfield",
+                    "given": "Allan"
+                }
+            ],
+            "container-title": "Journal of Research in Personality",
+            "id": "ponnock2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        12
+                    ]
+                ]
+            },
+            "language": "en",
+            "page": "104021",
+            "title": "Grit and conscientiousness: Another jangle fallacy",
+            "title-short": "Grit and conscientiousness",
+            "type": "article-journal",
+            "volume": "89"
+        },
+        {
+            "DOI": "10.1007/978-3-030-80519-7",
+            "URL": "https://library.oapen.org/handle/20.500.12657/51463",
+            "author": [
+                {
+                    "family": "Hair Jr.",
+                    "given": "Joseph F."
+                },
+                {
+                    "family": "Hult",
+                    "given": "G. Tomas M."
+                },
+                {
+                    "family": "Ringle",
+                    "given": "Christian M."
+                },
+                {
+                    "family": "Sarstedt",
+                    "given": "Marko"
+                },
+                {
+                    "family": "Danks",
+                    "given": "Nicholas P."
+                },
+                {
+                    "family": "Ray",
+                    "given": "Soumya"
+                }
+            ],
+            "id": "hairjr.2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "language": "en-US",
+            "note": "Accepted: 2021-11-15T15:27:39Z DOI: 10.1007/978-3-030-80519-7",
+            "publisher": "Springer Nature",
+            "publisher-place": "Cham, Switzerland",
+            "title": "Partial least squares structural equation modeling (PLS-SEM) using r: A workbook",
+            "title-short": "Partial least squares structural equation modeling (PLS-SEM) using r",
+            "type": "book"
+        },
+        {
+            "author": [
+                {
+                    "family": "Hair Jr.",
+                    "given": "Joseph F."
+                },
+                {
+                    "family": "Hult",
+                    "given": "G. Tomas M."
+                },
+                {
+                    "family": "Ringle",
+                    "given": "Christian M."
+                },
+                {
+                    "family": "Sarstedt",
+                    "given": "Marko"
+                }
+            ],
+            "edition": "3",
+            "id": "hairjr.2021a",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021,
+                        6,
+                        30
+                    ]
+                ]
+            },
+            "language": "en",
+            "note": "Google-Books-ID: AVMzEAAAQBAJ",
+            "publisher": "SAGE Publications",
+            "publisher-place": "Thousand Oaks, CA, US",
+            "title": "A Primer on Partial Least Squares Structural Equation Modeling (PLS-SEM)",
+            "type": "book"
+        }
+    ],
+    "project_biblios": []
+}

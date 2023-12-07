@@ -1,7 +1,0 @@
-"0","for (var in names(varlist)) {
-  sum_data <- sum_data %>% 
-    mutate(!!var := rowMeans(x = select(., varlist[[var]]), na.rm = T))
-}
-"
-"2","Error: object 'sum_data' not found
-"
