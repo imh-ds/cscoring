@@ -3,7 +3,7 @@
     "path": "C:/Users/imhoh/OneDrive/Academia/GitHub/cscoring/.Rbuildignore",
     "project_path": ".Rbuildignore",
     "type": "text",
-    "hash": "2918996966",
+    "hash": "2508682346",
     "contents": "",
     "dirty": false,
     "created": 1700898819746.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "4,11",
+        "cursorPosition": "5,8",
         "scrollLine": "0"
     },
     "folds": "",
-    "lastKnownWriteTime": 1701931039,
+    "lastKnownWriteTime": 1701934032,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1701931039107,
+    "last_content_update": 1701934032400,
     "read_only": false,
     "read_only_alternatives": []
 }
