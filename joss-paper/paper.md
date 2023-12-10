@@ -22,6 +22,10 @@ affiliations:
 
 Test
 
+Enter test reference here [@duckworth2007].
+
 # Statement of Need
 
 Test2
+
+# References
